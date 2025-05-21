@@ -42,6 +42,9 @@
 
 		}
 
+
+
+		
 	// Menu.
 		var $menu = $('#menu');
 
@@ -143,3 +146,24 @@
 			});
 
 })(jQuery);
+
+$(function () {
+  let logoShown = false;
+
+  $('#logo').on('mouseenter', function () {
+    if (!logoShown) {
+      const $logoText = $('#mylogo');
+
+      // Принудительно "заставим" браузер распознать начальное состояние
+      $logoText.removeClass('visible'); // сбросим на всякий случай
+      void $logoText[0].offsetWidth;    // форсируем reflow
+
+      // Добавим класс с задержкой, чтобы переход сработал плавно
+      setTimeout(() => {
+        $logoText.addClass('visible');
+      }, 50);
+
+      logoShown = true;
+    }
+  });
+});

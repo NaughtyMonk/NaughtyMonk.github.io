@@ -139,6 +139,9 @@ input, select, textarea {
 			body, input, select, textarea {
 				font-size: 13pt;
 			}
+			.icon {
+				background-size: 95%;
+			}
 
 		}
 
@@ -2388,6 +2391,8 @@ input, select, textarea {
 /* Icon */
 
 	.icon {
+		background-image: url("../../images/MyLogoSmall.png");	
+
 		text-decoration: none;
 		border-bottom: none;
 		position: relative;
@@ -3426,7 +3431,7 @@ input, select, textarea {
 
 			#banner .logo .icon {
 				border-radius: 100%;
-				border: solid 2px rgba(255, 255, 255, 0.125);
+				/* border: solid 2px rgba(255, 255, 255, 0.125); */
 				cursor: default;
 				display: inline-block;
 				font-size: 2em;
@@ -4204,19 +4209,30 @@ input, select, textarea {
 }
 
 .mylogo {
-	font-size: 50px;
-	font-weight: bold;
-	margin: 0 5%;
-	opacity: 0;
-	visibility: hidden;
-    transform: translateY(-5px);
-    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0s linear 0.4s;
-    pointer-events: none;
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0 5%;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  pointer-events: none;
+
+  /* ВАЖНО: задержка на opacity, чтобы не "прыгал" */
+  transition:
+    visibility 0s linear 0.6s,
+    opacity 0.6s ease 0.1s,
+    transform 0.6s ease 0.1s;
 }
 
-.logo:hover .mylogo {
-  opacity: 1;
+.mylogo.visible {
   visibility: visible;
+
+  opacity: 1;
   transform: translateY(0);
-  transition-delay: 0s;
+
+  transition:
+    visibility 0s linear 0s,
+    opacity 0.6s ease,
+    transform 0.6s ease;
 }
+
