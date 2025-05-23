@@ -167,3 +167,96 @@ $(function () {
     }
   });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.project-block').forEach(block => {
+    const toggleElements = block.querySelectorAll('.show-more-less');
+    const details = block.querySelector('.project-details');
+    const button = block.querySelector('.toggle-link');
+    const videoContainer = details.querySelector('.video-container');
+    const videoURL = 'https://www.youtube.com/embed/qY4rypue8ZY?si=ahU0vYXpo_BDgU4A';
+
+    toggleElements.forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const isHidden = details.classList.contains('hidden');
+
+        // Переключаем видимость блока
+        details.classList.toggle('hidden');
+
+        // Вставка или удаление iframe
+        if (!isHidden) {
+          videoContainer.innerHTML = '';
+        } else {
+          videoContainer.innerHTML = `
+            <iframe width="560" height="315"
+              src="${videoURL}"
+              title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+        }
+
+        // Меняем текст
+        if (button) {
+          button.textContent = isHidden ? 'Show less' : 'Show more';
+        }
+
+        // Переключаем класс стрелки
+        toggleElements.forEach(te => {
+          te.classList.toggle('expanded', isHidden); // true → добавит, false → уберёт
+        });
+      });
+    });
+  });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const mainImage = document.getElementById('main-image');
+  const thumbs = document.querySelectorAll('.thumbnails-track img');
+  const thumbTrack = document.querySelector('.thumbnails-track');
+  const thumbPrev = document.querySelector('.thumbnail-carousel-wrapper .arrow-btn.prev');
+const thumbNext = document.querySelector('.thumbnail-carousel-wrapper .arrow-btn.next');
+  const navPrev = document.querySelector('.main-image-wrapper .arrow-btn.prev');
+	const navNext = document.querySelector('.main-image-wrapper .arrow-btn.next');
+
+
+  let currentIndex = 0;
+  let thumbScroll = 0;
+
+  function showImage(index) {
+    currentIndex = index;
+    mainImage.src = thumbs[index].src;
+    thumbs.forEach(thumb => thumb.classList.remove('active'));
+    thumbs[index].classList.add('active');
+  }
+
+  thumbs.forEach((thumb, i) => {
+    thumb.addEventListener('click', () => showImage(i));
+  });
+
+  navPrev.addEventListener('click', () => {
+    if (currentIndex > 0) showImage(currentIndex - 1);
+  });
+
+  navNext.addEventListener('click', () => {
+    if (currentIndex < thumbs.length - 1) showImage(currentIndex + 1);
+  });
+
+  const scrollAmount = 170;
+  thumbNext.addEventListener('click', () => {
+    thumbScroll += scrollAmount;
+    thumbTrack.style.transform = `translateX(-${thumbScroll}px)`;
+  });
+
+  thumbPrev.addEventListener('click', () => {
+    thumbScroll -= scrollAmount;
+    if (thumbScroll < 0) thumbScroll = 0;
+    thumbTrack.style.transform = `translateX(-${thumbScroll}px)`;
+  });
+
+  showImage(0);
+});
