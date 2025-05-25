@@ -4675,6 +4675,9 @@ circle {
 .slide4 {
 	background-image: url("https://images.unsplash.com/photo-1494783404829-a93883e74b68?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=413f5f5c41f4db69a1474d92419601ac");
 }
+.slide5 {
+	background-image: url("https://images.unsplash.com/photo-1490100667990-4fced8021649?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=247f52de1a292b8a1877b0c7dd77a291");
+}
 
 .slider {
 	position: absolute;
@@ -4685,7 +4688,7 @@ circle {
 	overflow: hidden;
 }
 
-.slide1, .slide2, .slide3, .slide4 {
+.slide1, .slide2, .slide3, .slide4, .slide5 {
 	position: absolute;
 	background-position: center;
 	background-size: cover;
