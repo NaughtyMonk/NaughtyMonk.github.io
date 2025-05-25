@@ -801,10 +801,9 @@ if (carousel) {
 // === ПОЛНОЭКРАННЫЙ РЕЖИМ ===
 const slideElements = Array.from(document.querySelectorAll(`[id^='slide']`));
 const imageUrls = slideElements.map(slide => {
-	const bg = getComputedStyle(slide).backgroundImage;
-	const match = bg.match(/url\(["']?(.*?)["']?\)/);
-	return match ? match[1] : null;
+	return slide.tagName === 'IMG' ? slide.src : null;
 });
+
 
 let fullscreenIndex = 0;
 
@@ -907,3 +906,5 @@ slideElements.forEach((slide, idx) => {
 		if (e.key === "ArrowRight") rightSlide();
 	});
 });
+
+

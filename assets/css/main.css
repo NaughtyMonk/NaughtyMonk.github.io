@@ -4507,7 +4507,9 @@ a.special.toggle-link:hover {
 	-moz-box-shadow: 0 0 88px 5px rgba(0, 0, 0, 0.75);
 	box-shadow: 0 0 88px 5px rgba(0, 0, 0, 0.75);
 }
-
+.parent:hover {
+	box-shadow: 0 0 80px #ffcc0049; /* мягкая жёлтая тень */
+}
 svg {
 	position: absolute;
 	z-index: 1;
@@ -4572,9 +4574,6 @@ circle {
 	transition: .5s;
 }
 
-.right:hover {
-	/* background-color: #fff; */
-}
 
 .left {
 	margin-left: 0.2%;
@@ -4584,9 +4583,6 @@ circle {
 	transition: .5s;
 }
 
-.left:hover {
-	/* background-color: #fff; */
-}
 
 .circle1 {
 	transition-delay: 0.05s;
@@ -4660,10 +4656,10 @@ circle {
 	transition-delay: 0.45s;
 }
 
-.slide1 {
+/* .slide1 {
 	background-image: url("https://images.unsplash.com/photo-1483068612337-c045daaca40e?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=6de8746a693acc34ebe9e9a15c4c18d1");
-}
-
+} */
+/* 
 .slide2 {
 	background-image: url("https://images.unsplash.com/photo-1489914099268-1dad649f76bf?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=f21f40bb93bae58300e83f7f72ebb5a5");
 }
@@ -4677,37 +4673,42 @@ circle {
 }
 .slide5 {
 	background-image: url("https://images.unsplash.com/photo-1490100667990-4fced8021649?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1600&h=900&fit=crop&s=247f52de1a292b8a1877b0c7dd77a291");
-}
+} */
 
 .slider {
 	position: absolute;
 	width: 400%;
 	height: 100%;
-	background: #000;
+	/* background: #000; */
 	display: inline-flex;
 	overflow: hidden;
 }
 
-.slide1, .slide2, .slide3, .slide4, .slide5 {
+.slide1, .slide2, .slide3, .slide4, .slide5,
+.slide6, .slide7, .slide8, .slide9, .slide10 {
 	position: absolute;
 	background-position: center;
-	background-size: cover;
+	background-size: contain;
 	color: #fff;
 	font-size: 62px;
-	padding-top: 138px;
+	/* padding-top: 138px; */
 	font-weight: 800;
 	font-family: 'Heebo', sans-serif;
 	text-align: center;
 	width: 25%;
 	height: 100%;
-	z-index: 10;
+	z-index: 1;
 	transition: opacity 0.5s ease;
 	opacity: 0.4;
-
+	object-fit: cover;
+	top: 0;
+	left: 0;
+	
 }
 
-.tran {
-	/* transform: scale(1.3); */
+.slide1, .slide2, .slide3, .slide4, .slide5,
+.slide6, .slide7, .slide8, .slide9, .slide10:hover {
+	cursor:pointer ;
 }
 
 .up1 {
@@ -4742,4 +4743,10 @@ circle {
   background-color: #ffd700;
   transition: width 5s linear;
   z-index: 100;
+}
+
+.project-details h3 {
+	padding-top: 1em;
+	
+	text-align: center;
 }
