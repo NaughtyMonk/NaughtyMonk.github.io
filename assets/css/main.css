@@ -4750,3 +4750,70 @@ circle {
 	
 	text-align: center;
 }
+
+
+.nav-zone {
+	position: absolute;
+	top: 0;
+	width: 15%;
+	min-width: 60px;
+	height: 100%;
+	z-index: 50;
+	cursor: pointer;
+	transition: background 0.3s ease;
+	pointer-events: auto;
+}
+
+.nav-left {
+	left: 0;
+	background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
+}
+
+.nav-right {
+	right: 0;
+	background: linear-gradient(to left, rgba(0, 0, 0, 0.1), transparent);
+	z-index: 50;
+}
+
+.nav-left:hover {
+	background: linear-gradient(to right, rgba(255, 215, 0, 0.4), transparent);
+}
+
+.nav-right:hover {
+	background: linear-gradient(to left, rgba(255, 215, 0, 0.4), transparent);
+}
+
+.arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	color: white;
+	font-size: 2.5rem;
+	pointer-events: none;
+	user-select: none;
+	opacity: 0.4;
+	transition: opacity 0.3s ease, transform 0.3s ease;
+	font-family: "Font Awesome 5 Free"; /* или твой шрифт */
+	font-weight: 900;
+}
+
+.nav-left .arrow {
+	left: 20px;
+}
+
+.nav-right .arrow {
+	right: 20px;
+}
+
+.nav-zone:hover .arrow {
+	opacity: 1;
+	transform: translateY(-50%) scale(1.1);
+}
+
+.nav-left,
+.nav-right {
+	width: 15%;
+	min-width: 60px;
+	max-width: 100px;
+}
+

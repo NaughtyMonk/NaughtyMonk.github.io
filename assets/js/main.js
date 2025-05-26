@@ -4,377 +4,392 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-(function($) {
+(function ($) {
 
-	var	$window = $(window),
+	var $window = $(window),
 		$body = $('body'),
 		$header = $('#header'),
 		$banner = $('#banner');
 
 	// Breakpoints.
-		breakpoints({
-			xlarge:	'(max-width: 1680px)',
-			large:	'(max-width: 1280px)',
-			medium:	'(max-width: 980px)',
-			small:	'(max-width: 736px)',
-			xsmall:	'(max-width: 480px)'
-		});
+	breakpoints({
+		xlarge: '(max-width: 1680px)',
+		large: '(max-width: 1280px)',
+		medium: '(max-width: 980px)',
+		small: '(max-width: 736px)',
+		xsmall: '(max-width: 480px)'
+	});
 
 	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+	$window.on('load', function () {
+		window.setTimeout(function () {
+			$body.removeClass('is-preload');
+		}, 100);
+	});
 
 	// Header.
-		if ($banner.length > 0
-		&&	$header.hasClass('alt')) {
+	if ($banner.length > 0
+		&& $header.hasClass('alt')) {
 
-			$window.on('resize', function() { $window.trigger('scroll'); });
+		$window.on('resize', function () { $window.trigger('scroll'); });
 
-			$banner.scrollex({
-				bottom:		$header.outerHeight(),
-				terminate:	function() { $header.removeClass('alt'); },
-				enter:		function() { $header.addClass('alt'); },
-				leave:		function() { $header.removeClass('alt'); }
-			});
+		$banner.scrollex({
+			bottom: $header.outerHeight(),
+			terminate: function () { $header.removeClass('alt'); },
+			enter: function () { $header.addClass('alt'); },
+			leave: function () { $header.removeClass('alt'); }
+		});
 
-		}
+	}
 
 
 
-		
+
 	// Menu.
-		var $menu = $('#menu');
+	var $menu = $('#menu');
 
-		$menu._locked = false;
+	$menu._locked = false;
 
-		$menu._lock = function() {
+	$menu._lock = function () {
 
-			if ($menu._locked)
-				return false;
+		if ($menu._locked)
+			return false;
 
-			$menu._locked = true;
+		$menu._locked = true;
 
-			window.setTimeout(function() {
-				$menu._locked = false;
+		window.setTimeout(function () {
+			$menu._locked = false;
+		}, 350);
+
+		return true;
+
+	};
+
+	$menu._show = function () {
+
+		if ($menu._lock())
+			$body.addClass('is-menu-visible');
+
+	};
+
+	$menu._hide = function () {
+
+		if ($menu._lock())
+			$body.removeClass('is-menu-visible');
+
+	};
+
+	$menu._toggle = function () {
+
+		if ($menu._lock())
+			$body.toggleClass('is-menu-visible');
+
+	};
+
+	$menu
+		.appendTo($body)
+		.on('click', function (event) {
+
+			event.stopPropagation();
+
+			// Hide.
+			$menu._hide();
+
+		})
+		.find('.inner')
+		.on('click', '.close', function (event) {
+
+			event.preventDefault();
+			event.stopPropagation();
+			event.stopImmediatePropagation();
+
+			// Hide.
+			$menu._hide();
+
+		})
+		.on('click', function (event) {
+			event.stopPropagation();
+		})
+		.on('click', 'a', function (event) {
+
+			var href = $(this).attr('href');
+
+			event.preventDefault();
+			event.stopPropagation();
+
+			// Hide.
+			$menu._hide();
+
+			// Redirect.
+			window.setTimeout(function () {
+				window.location.href = href;
 			}, 350);
 
-			return true;
+		});
 
-		};
+	$body
+		.on('click', 'a[href="#menu"]', function (event) {
 
-		$menu._show = function() {
+			event.stopPropagation();
+			event.preventDefault();
 
-			if ($menu._lock())
-				$body.addClass('is-menu-visible');
+			// Toggle.
+			$menu._toggle();
 
-		};
+		})
+		.on('keydown', function (event) {
 
-		$menu._hide = function() {
+			// Hide on escape.
+			if (event.keyCode == 27)
+				$menu._hide();
 
-			if ($menu._lock())
-				$body.removeClass('is-menu-visible');
-
-		};
-
-		$menu._toggle = function() {
-
-			if ($menu._lock())
-				$body.toggleClass('is-menu-visible');
-
-		};
-
-		$menu
-			.appendTo($body)
-			.on('click', function(event) {
-
-				event.stopPropagation();
-
-				// Hide.
-					$menu._hide();
-
-			})
-			.find('.inner')
-				.on('click', '.close', function(event) {
-
-					event.preventDefault();
-					event.stopPropagation();
-					event.stopImmediatePropagation();
-
-					// Hide.
-						$menu._hide();
-
-				})
-				.on('click', function(event) {
-					event.stopPropagation();
-				})
-				.on('click', 'a', function(event) {
-
-					var href = $(this).attr('href');
-
-					event.preventDefault();
-					event.stopPropagation();
-
-					// Hide.
-						$menu._hide();
-
-					// Redirect.
-						window.setTimeout(function() {
-							window.location.href = href;
-						}, 350);
-
-				});
-
-		$body
-			.on('click', 'a[href="#menu"]', function(event) {
-
-				event.stopPropagation();
-				event.preventDefault();
-
-				// Toggle.
-					$menu._toggle();
-
-			})
-			.on('keydown', function(event) {
-
-				// Hide on escape.
-					if (event.keyCode == 27)
-						$menu._hide();
-
-			});
+		});
 
 })(jQuery);
 
 $(function () {
-  let logoShown = false;
+	let logoShown = false;
 
-  $('#logo').on('mouseenter', function () {
-    if (!logoShown) {
-      const $logoText = $('#mylogo');
+	$('#logo').on('mouseenter', function () {
+		if (!logoShown) {
+			const $logoText = $('#mylogo');
 
-      // Принудительно "заставим" браузер распознать начальное состояние
-      $logoText.removeClass('visible'); // сбросим на всякий случай
-      void $logoText[0].offsetWidth;    // форсируем reflow
+			// Принудительно "заставим" браузер распознать начальное состояние
+			$logoText.removeClass('visible'); // сбросим на всякий случай
+			void $logoText[0].offsetWidth;    // форсируем reflow
 
-      // Добавим класс с задержкой, чтобы переход сработал плавно
-      setTimeout(() => {
-        $logoText.addClass('visible');
-      }, 50);
+			// Добавим класс с задержкой, чтобы переход сработал плавно
+			setTimeout(() => {
+				$logoText.addClass('visible');
+			}, 50);
 
-      logoShown = true;
-    }
-  });
+			logoShown = true;
+		}
+	});
 });
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll('.project-block').forEach(block => {
-    const toggleElements = block.querySelectorAll('.show-more-less');
-    const details = block.querySelector('.project-details');
-    const button = block.querySelector('.toggle-link');
-    const videoContainer = details.querySelector('.video-container');
-    const videoURL = 'https://www.youtube.com/embed/qY4rypue8ZY?si=ahU0vYXpo_BDgU4A';
+	document.querySelectorAll('.project-block').forEach(block => {
+		const toggleElements = block.querySelectorAll('.show-more-less');
+		const details = block.querySelector('.project-details');
+		const button = block.querySelector('.toggle-link');
+		const videoContainer = details.querySelector('.video-container');
+		const videoURL = 'https://www.youtube.com/embed/qY4rypue8ZY?si=ahU0vYXpo_BDgU4A';
 
-    toggleElements.forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
+		toggleElements.forEach(el => {
+			el.addEventListener('click', (e) => {
+				e.preventDefault();
 
-        const isHidden = details.classList.contains('hidden');
+				const isHidden = details.classList.contains('hidden');
 
-        // Переключаем видимость блока
-        details.classList.toggle('hidden');
+				// Переключаем видимость блока
+				details.classList.toggle('hidden');
 
-        // Вставка или удаление iframe
-        if (!isHidden) {
-          videoContainer.innerHTML = '';
-        } else {
-          videoContainer.innerHTML = `
+				// Вставка или удаление iframe
+				if (!isHidden) {
+					videoContainer.innerHTML = '';
+				} else {
+					videoContainer.innerHTML = `
             <iframe width="560" height="315"
               src="${videoURL}"
               title="YouTube video player" frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
-        }
+				}
 
-        // Меняем текст
-        if (button) {
-          button.textContent = isHidden ? 'Show less' : 'Show more';
-        }
+				// Меняем текст
+				if (button) {
+					button.textContent = isHidden ? 'Show less' : 'Show more';
+				}
 
-        // Переключаем класс стрелки
-        toggleElements.forEach(te => {
-          te.classList.toggle('expanded', isHidden); // true → добавит, false → уберёт
-        });
-      });
-    });
-  });
+				// Переключаем класс стрелки
+				toggleElements.forEach(te => {
+					te.classList.toggle('expanded', isHidden); // true → добавит, false → уберёт
+				});
+			});
+		});
+	});
 });
 
 // ------------------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".parent").forEach((carousel) => {
-    const slides = Array.from(carousel.querySelectorAll(".slide"));
-    const leftBtn = carousel.querySelector(".left");
-    const rightBtn = carousel.querySelector(".right");
-    const progressBar = carousel.querySelector(".autoProgressBar");
-    const svgCircles = carousel.querySelectorAll("svg circle");
+	document.querySelectorAll(".parent").forEach((carousel) => {
+		const slides = Array.from(carousel.querySelectorAll(".slide"));
+		const leftBtn = carousel.querySelector(".left");
+		const rightBtn = carousel.querySelector(".right");
+		const progressBar = carousel.querySelector(".autoProgressBar");
+		const svgCircles = carousel.querySelectorAll("svg circle");
 
-    let curIndex = 0;
-    let sliding = false;
-    let click = true;
-    let isHovered = false;
-    let intervalId;
+		let curIndex = 0;
+		let sliding = false;
+		let click = true;
+		let isHovered = false;
+		let intervalId;
 
-    function updateSlides() {
-      slides.forEach((slide, i) => {
-        if (i === curIndex) {
-          slide.classList.add("up1");
-        } else {
-          slide.classList.remove("up1");
-        }
-      });
-    }
+		function updateSlides() {
+			slides.forEach((slide, i) => {
+				if (i === curIndex) {
+					slide.classList.add("up1");
+				} else {
+					slide.classList.remove("up1");
+				}
+			});
+		}
 
-    function animateSVG(direction) {
-      const circleIds = Array.from(svgCircles).map(c => c.id);
-      const isLeft = direction === "left";
+		function animateSVG(direction) {
+			const circleIds = Array.from(svgCircles).map(c => c.id);
+			const isLeft = direction === "left";
 
-      svgCircles.forEach((circle) => {
-        const id = circle.id.replace("circle", "");
-        const num = parseInt(id);
-        if ((isLeft && num >= 1 && num <= 9) || (!isLeft && num >= 10 && num <= 18)) {
-          circle.classList.remove("steap");
-          circle.classList.add("streak");
-        }
-      });
+			svgCircles.forEach((circle) => {
+				const id = circle.id.replace("circle", "");
+				const num = parseInt(id);
+				if ((isLeft && num >= 1 && num <= 9) || (!isLeft && num >= 10 && num <= 18)) {
+					circle.classList.remove("steap");
+					circle.classList.add("streak");
+				}
+			});
 
-      setTimeout(() => {
-        svgCircles.forEach((circle) => {
-          circle.classList.remove("streak");
-          circle.classList.add("steap");
-        });
-      }, 850);
-    }
+			setTimeout(() => {
+				svgCircles.forEach((circle) => {
+					circle.classList.remove("streak");
+					circle.classList.add("steap");
+				});
+			}, 850);
+		}
 
-    function slideLeft() {
-      if (!click) return;
-      click = false;
-      curIndex = (curIndex - 1 + slides.length) % slides.length;
-      updateSlides();
-      animateSVG("left");
-      setTimeout(() => (click = true), 1700);
-    }
+		function slideLeft() {
+			if (!click) return;
+			click = false;
+			curIndex = (curIndex - 1 + slides.length) % slides.length;
+			updateSlides();
+			animateSVG("left");
+			setTimeout(() => (click = true), 1700);
+		}
 
-    function slideRight() {
-      if (!click) return;
-      click = false;
-      curIndex = (curIndex + 1) % slides.length;
-      updateSlides();
-      animateSVG("right");
-      setTimeout(() => (click = true), 1700);
-    }
+		function slideRight() {
+			if (!click) return;
+			click = false;
+			curIndex = (curIndex + 1) % slides.length;
+			updateSlides();
+			animateSVG("right");
+			setTimeout(() => (click = true), 1700);
+		}
 
-    function startAutoSlide() {
-      if (!progressBar) return;
+		function startAutoSlide() {
+			if (!progressBar) return;
 
-      resetProgressBar();
+			resetProgressBar();
 
-      intervalId = setInterval(() => {
-        if (!isHovered && click) {
-          slideRight();
-          resetProgressBar();
-        }
-      }, 5000);
-    }
+			intervalId = setInterval(() => {
+				if (!isHovered && click) {
+					slideRight();
+					resetProgressBar();
+				}
+			}, 5000);
+		}
 
 		function stopAutoSlide() {
-		clearInterval(intervalId);
-		if (progressBar) {
-			// Позволим прогрессбару плавно откатиться назад
-			progressBar.style.transition = "width 0.5s ease";
+			clearInterval(intervalId);
+			if (progressBar) {
+				// Позволим прогрессбару плавно откатиться назад
+				progressBar.style.transition = "width 0.5s ease";
+				progressBar.style.width = "0%";
+			}
+		}
+
+
+		function resetProgressBar() {
+			progressBar.style.transition = "none";
 			progressBar.style.width = "0%";
+			setTimeout(() => {
+				progressBar.style.transition = "width 5s linear";
+				progressBar.style.width = "100%";
+			}, 50);
 		}
-		}
+
+		// EVENTS
+		leftBtn?.addEventListener("click", slideLeft);
+		rightBtn?.addEventListener("click", slideRight);
+
+		const navLeft = carousel.querySelector(".nav-left");
+		const navRight = carousel.querySelector(".nav-right");
+
+		navLeft?.addEventListener("click", slideLeft);
+		navRight?.addEventListener("click", slideRight);
 
 
-    function resetProgressBar() {
-      progressBar.style.transition = "none";
-      progressBar.style.width = "0%";
-      setTimeout(() => {
-        progressBar.style.transition = "width 5s linear";
-        progressBar.style.width = "100%";
-      }, 50);
-    }
+		carousel.addEventListener("mouseenter", () => {
+			isHovered = true;
+			stopAutoSlide();
+		});
 
-    // EVENTS
-    leftBtn?.addEventListener("click", slideLeft);
-    rightBtn?.addEventListener("click", slideRight);
-
-    carousel.addEventListener("mouseenter", () => {
-      isHovered = true;
-      stopAutoSlide();
-    });
-
-    carousel.addEventListener("mouseleave", () => {
-      isHovered = false;
-      startAutoSlide();
-    });
-
-    // Initialize
-    updateSlides();
-    startAutoSlide();
-  });
+		carousel.addEventListener("mouseleave", () => {
+			isHovered = false;
+			startAutoSlide();
+		});
+		
+		slides.forEach((slide, index) => {
+	slide.addEventListener('click', () => {
+		const imageUrls = slides.map(sl => sl.src);
+		openFullscreen(imageUrls, index);
+	});
 });
 
- //-------------------------------------------------
+
+		// Initialize
+		updateSlides();
+		startAutoSlide();
+	});
+});
+
+//-------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
-  const mainImage = document.getElementById('main-image');
-  const thumbs = document.querySelectorAll('.thumbnails-track img');
-  const thumbTrack = document.querySelector('.thumbnails-track');
-  const thumbPrev = document.querySelector('.thumbnail-carousel-wrapper .arrow-btn.prev');
-const thumbNext = document.querySelector('.thumbnail-carousel-wrapper .arrow-btn.next');
-  const navPrev = document.querySelector('.main-image-wrapper .arrow-btn.prev');
+	const mainImage = document.getElementById('main-image');
+	const thumbs = document.querySelectorAll('.thumbnails-track img');
+	const thumbTrack = document.querySelector('.thumbnails-track');
+	const thumbPrev = document.querySelector('.thumbnail-carousel-wrapper .arrow-btn.prev');
+	const thumbNext = document.querySelector('.thumbnail-carousel-wrapper .arrow-btn.next');
+	const navPrev = document.querySelector('.main-image-wrapper .arrow-btn.prev');
 	const navNext = document.querySelector('.main-image-wrapper .arrow-btn.next');
 
 
-  let currentIndex = 0;
-  let thumbScroll = 0;
+	let currentIndex = 0;
+	let thumbScroll = 0;
 
-  function showImage(index) {
-    currentIndex = index;
-    mainImage.src = thumbs[index].src;
-    thumbs.forEach(thumb => thumb.classList.remove('active'));
-    thumbs[index].classList.add('active');
-  }
+	function showImage(index) {
+		currentIndex = index;
+		mainImage.src = thumbs[index].src;
+		thumbs.forEach(thumb => thumb.classList.remove('active'));
+		thumbs[index].classList.add('active');
+	}
 
-  thumbs.forEach((thumb, i) => {
-    thumb.addEventListener('click', () => showImage(i));
-  });
+	thumbs.forEach((thumb, i) => {
+		thumb.addEventListener('click', () => showImage(i));
+	});
 
-  navPrev.addEventListener('click', () => {
-    if (currentIndex > 0) showImage(currentIndex - 1);
-  });
+	navPrev.addEventListener('click', () => {
+		if (currentIndex > 0) showImage(currentIndex - 1);
+	});
 
-  navNext.addEventListener('click', () => {
-    if (currentIndex < thumbs.length - 1) showImage(currentIndex + 1);
-  });
+	navNext.addEventListener('click', () => {
+		if (currentIndex < thumbs.length - 1) showImage(currentIndex + 1);
+	});
 
-  const scrollAmount = 170;
-  thumbNext.addEventListener('click', () => {
-    thumbScroll += scrollAmount;
-    thumbTrack.style.transform = `translateX(-${thumbScroll}px)`;
-  });
+	const scrollAmount = 170;
+	thumbNext.addEventListener('click', () => {
+		thumbScroll += scrollAmount;
+		thumbTrack.style.transform = `translateX(-${thumbScroll}px)`;
+	});
 
-  thumbPrev.addEventListener('click', () => {
-    thumbScroll -= scrollAmount;
-    if (thumbScroll < 0) thumbScroll = 0;
-    thumbTrack.style.transform = `translateX(-${thumbScroll}px)`;
-  });
+	thumbPrev.addEventListener('click', () => {
+		thumbScroll -= scrollAmount;
+		if (thumbScroll < 0) thumbScroll = 0;
+		thumbTrack.style.transform = `translateX(-${thumbScroll}px)`;
+	});
 
-  showImage(0);
+	showImage(0);
 });
 
 // ============ Полноэкранный режим с переключением ============
@@ -489,17 +504,24 @@ document.addEventListener("DOMContentLoaded", () => {
 	right?.addEventListener("mousedown", rightSlide);
 
 
-// === ПОЛНОЭКРАННЫЙ РЕЖИМ ===
-const slideElements = Array.from(document.querySelectorAll(`[id^='slide']`));
-const imageUrls = slideElements.map(slide => {
-	return slide.tagName === 'IMG' ? slide.src : null;
+	// === ПОЛНОЭКРАННЫЙ РЕЖИМ ===
+document.querySelectorAll(".parent").forEach((carousel) => {
+	const slides = Array.from(carousel.querySelectorAll(".slide"));
+	
+	slides.forEach((slide, index) => {
+		slide.addEventListener("click", () => {
+			const imageUrls = slides.map(sl => sl.src);
+			openFullscreen(imageUrls, index);
+		});
+	});
 });
 
 
-let fullscreenIndex = 0;
 
-function openFullscreen(index) {
-	fullscreenIndex = index;
+	let fullscreenIndex = 0;
+
+	function openFullscreen(images, index = 0) {
+	let fullscreenIndex = index;
 
 	const overlay = document.createElement('div');
 	overlay.id = 'fullscreenOverlay';
@@ -518,7 +540,7 @@ function openFullscreen(index) {
 	});
 
 	const img = document.createElement('img');
-	img.src = imageUrls[fullscreenIndex];
+	img.src = images[fullscreenIndex];
 	Object.assign(img.style, {
 		maxWidth: '90vw',
 		maxHeight: '90vh',
@@ -528,7 +550,6 @@ function openFullscreen(index) {
 	});
 	overlay.appendChild(img);
 
-	// Левая зона
 	const left = document.createElement('div');
 	Object.assign(left.style, {
 		position: 'absolute',
@@ -540,14 +561,23 @@ function openFullscreen(index) {
 		background: 'linear-gradient(to right, rgba(217, 255, 3, 0.1), transparent)',
 		zIndex: 10001
 	});
-	left.onmouseenter = () => left.style.background = 'linear-gradient(to right, rgba(255, 215, 0, 0.6), transparent)';
-	left.onmouseleave = () => left.style.background = 'linear-gradient(to right, rgba(217, 255, 3, 0.1), transparent)';
+
 	left.onclick = () => {
-		fullscreenIndex = (fullscreenIndex - 1 + imageUrls.length) % imageUrls.length;
-		img.src = imageUrls[fullscreenIndex];
+		fullscreenIndex = (fullscreenIndex - 1 + images.length) % images.length;
+		img.src = images[fullscreenIndex];
+	};
+	left.onmouseenter = () => {
+		left.style.background = 'linear-gradient(to right, rgba(255, 215, 0, 0.4), transparent)';
+	};
+	left.onmouseleave = () => {
+		left.style.background = 'linear-gradient(to right, rgba(217, 255, 3, 0.1), transparent)';
 	};
 
-	// Правая зона
+	left.onclick = () => {
+		fullscreenIndex = (fullscreenIndex - 1 + images.length) % images.length;
+		img.src = images[fullscreenIndex];
+	};
+
 	const right = document.createElement('div');
 	Object.assign(right.style, {
 		position: 'absolute',
@@ -559,14 +589,23 @@ function openFullscreen(index) {
 		background: 'linear-gradient(to left, rgba(217, 255, 3, 0.1), transparent)',
 		zIndex: 10001
 	});
-	right.onmouseenter = () => right.style.background = 'linear-gradient(to left, rgba(255, 215, 0, 0.6), transparent)';
-	right.onmouseleave = () => right.style.background = 'linear-gradient(to left, rgba(217, 255, 3, 0.1), transparent)';
+
 	right.onclick = () => {
-		fullscreenIndex = (fullscreenIndex + 1) % imageUrls.length;
-		img.src = imageUrls[fullscreenIndex];
+		fullscreenIndex = (fullscreenIndex + 1) % images.length;
+		img.src = images[fullscreenIndex];
+	};
+	right.onmouseenter = () => {
+		right.style.background = 'linear-gradient(to left, rgba(255, 215, 0, 0.4), transparent)';
+	};
+	right.onmouseleave = () => {
+		right.style.background = 'linear-gradient(to left, rgba(217, 255, 3, 0.1), transparent)';
 	};
 
-	// Центр — закрытие
+	right.onclick = () => {
+		fullscreenIndex = (fullscreenIndex + 1) % images.length;
+		img.src = images[fullscreenIndex];
+	};
+
 	const center = document.createElement('div');
 	Object.assign(center.style, {
 		position: 'absolute',
@@ -585,17 +624,19 @@ function openFullscreen(index) {
 	document.body.appendChild(overlay);
 }
 
-// Назначаем клик по каждому слайду
-slideElements.forEach((slide, idx) => {
-	slide.addEventListener('click', () => {
-		openFullscreen(idx);
+
+	// Назначаем клик по каждому слайду
+	slideElements.forEach((slide, idx) => {
+		slide.addEventListener('click', () => {
+			openFullscreen(idx);
+		});
 	});
-});
 
 	document.addEventListener("keydown", e => {
 		if (e.key === "ArrowLeft") leftSlide();
 		if (e.key === "ArrowRight") rightSlide();
 	});
+	
 });
 
 
