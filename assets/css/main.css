@@ -4734,7 +4734,7 @@ circle {
 	}
 }
 
-#autoProgressBar {
+.autoProgressBar {
   position: relative;
   top: 0;
   left: 0;
