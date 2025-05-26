@@ -4521,12 +4521,12 @@ svg {
 button {
 	position: absolute;
 	z-index: 50;
-	width: 40px;
+	width: 1%;
 	overflow: hidden;
-	height: 60px;
+	height: 12%;
 	border: none;
 	border-radius: 100%;
-	background: #fff;
+	/* background: #fff; */
 	cursor: pointer;
 	-webkit-box-shadow: 0 0 88px 5px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 0 0 88px 5px rgba(0, 0, 0, 0.75);
@@ -4567,9 +4567,9 @@ circle {
 
 .right {
 	position: absolute;
-	margin-left: 615px;
+	margin-left: 612px;
 	margin-top: 157px;
-	border: 1px solid #FFCB05;
+	/* border: 1px solid #FFCB05; */
 	background-color: transparent;
 	transition: .5s;
 }
@@ -4578,7 +4578,7 @@ circle {
 .left {
 	margin-left: 0.2%;
 	margin-top: 157px;
-	border: 1px solid #FFCB05;
+	/* border: 1px solid #FFCB05; */
 	background-color: transparent;
 	transition: .5s;
 }
