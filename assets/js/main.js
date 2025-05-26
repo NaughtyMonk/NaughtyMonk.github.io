@@ -170,12 +170,40 @@ $(function () {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+	document.getElementById('hide-all-projects')?.addEventListener('click', (e) => {
+	e.preventDefault(); // чтобы не прыгал вверх
+	document.querySelectorAll('.project-block').forEach(block => {
+		const details = block.querySelector('.project-details');
+		const button = block.querySelector('.toggle-link');
+		const videoContainer = block.querySelector('.video-container');
+
+		// Закрываем открытые блоки
+		if (details && !details.classList.contains('hidden')) {
+			details.classList.add('hidden');
+
+			// Удаляем видео
+			if (videoContainer) videoContainer.innerHTML = '';
+
+			// Сброс текста кнопки
+			if (button) button.textContent = 'Show more';
+
+			// Удаляем .expanded с show-more кнопок
+			block.querySelectorAll('.show-more-less').forEach(el => {
+				el.classList.remove('expanded');
+			});
+		}
+	});
+});
+
 	document.querySelectorAll('.project-block').forEach(block => {
 		const toggleElements = block.querySelectorAll('.show-more-less');
 		const details = block.querySelector('.project-details');
 		const button = block.querySelector('.toggle-link');
 		const videoContainer = details.querySelector('.video-container');
-		const videoURL = 'https://www.youtube.com/embed/qY4rypue8ZY?si=ahU0vYXpo_BDgU4A';
+
+		// Получаем ссылку на видео из data-атрибута, если он есть
+		const videoURL = videoContainer?.dataset?.videoUrl || null;
+
 
 		toggleElements.forEach(el => {
 			el.addEventListener('click', (e) => {
@@ -188,14 +216,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				// Вставка или удаление iframe
 				if (!isHidden) {
-					videoContainer.innerHTML = '';
+					// Закрываем — удаляем видео, если контейнер есть
+					if (videoContainer) videoContainer.innerHTML = '';
 				} else {
-					videoContainer.innerHTML = `
-            <iframe width="560" height="315"
-              src="${videoURL}"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+					// Открываем — добавляем видео только если data-video-url присутствует
+					if (videoContainer && videoURL) {
+						videoContainer.innerHTML = `
+						<iframe width="560" height="315"
+							src="${videoURL}"
+							title="YouTube video player" frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+					}
 				}
 
 				// Меняем текст
@@ -259,23 +291,41 @@ document.addEventListener("DOMContentLoaded", () => {
 			}, 850);
 		}
 
-		function slideLeft() {
-			if (!click) return;
-			click = false;
-			curIndex = (curIndex - 1 + slides.length) % slides.length;
-			updateSlides();
-			animateSVG("left");
-			setTimeout(() => (click = true), 1700);
-		}
+function slideLeft() {
+	if (!click) return;
+	click = false;
 
-		function slideRight() {
-			if (!click) return;
-			click = false;
-			curIndex = (curIndex + 1) % slides.length;
-			updateSlides();
-			animateSVG("right");
-			setTimeout(() => (click = true), 1700);
-		}
+	// SVG-анимация сначала
+	animateSVG("left");
+
+	// Задержка перед сменой слайда (синхронно с анимацией)
+	setTimeout(() => {
+		curIndex = (curIndex - 1 + slides.length) % slides.length;
+		updateSlides();
+	}, 300); // или 300 — подбери под свою анимацию
+
+	// Разрешаем следующий клик через 1.2–1.5 сек
+	setTimeout(() => {
+		click = true;
+	}, 1200);
+}
+
+function slideRight() {
+	if (!click) return;
+	click = false;
+
+	animateSVG("right");
+
+	setTimeout(() => {
+		curIndex = (curIndex + 1) % slides.length;
+		updateSlides();
+	}, 300);
+
+	setTimeout(() => {
+		click = true;
+	}, 1200);
+}
+
 
 		function startAutoSlide() {
 			if (!progressBar) return;
