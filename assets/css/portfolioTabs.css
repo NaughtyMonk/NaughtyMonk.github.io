@@ -50,7 +50,7 @@ body {
   padding-left: 0;
   display: flex;
   flex-direction: row;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
@@ -85,13 +85,11 @@ body {
   display: none;
 }
 
-.tabs ul li label:hover, .tabs ul li label:focus, .tabs ul li label:active {
-  outline: 0;
-  /* background-color: #bec5cf4a; */
+.tabs ul li label span:hover, .tabs ul li label:focus, .tabs ul li label:active{
+  /* outline: 0; */
+  color: #ffcd0592;
 }
-.tabs ul li label:hover svg, .tabs ul li label:focus svg, .tabs ul li label:active svg {
-  fill: #bec5cf;
-}
+
 /* .tabs .slider {
   position: relative;
   width: 25%;
@@ -103,7 +101,7 @@ body {
   max-width: 100%;
   margin: 0 auto;
   height: 4px;
-  background: #428bff;
+  /* background: #428bff; */
   border-radius: 1px;
 }
 .tabs .content {
@@ -124,7 +122,7 @@ body {
   line-height: 1.4;
 }
 .tabs .content .tab_content h2 {
-  color: #428bff;
+  /* color: #428bff; */
   display: none;
 }
 .tabs .content .tab_content h2::after {
@@ -133,13 +131,13 @@ body {
   display: block;
   width: 30px;
   height: 3px;
-  background: #428bff;
+  /* background: #428bff; */
   margin-top: 5px;
   left: 1px;
 }
 .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
   cursor: default;
-  color: #428bff;
+  /* color: #428bff; */
 }
 .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label span {
   color: #FFCB05;
@@ -147,11 +145,11 @@ body {
 
 
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
     background: rgba(0, 0, 0, 0.08);
   }
-}
+} */
 .tabs input[name=tab-control]:nth-of-type(1):checked ~ .slider {
   transform: translateX(0%);
 }
@@ -196,7 +194,7 @@ body {
 }
 .tabs input[name=tab-control]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label {
   cursor: default;
-  color: #428bff;
+  /* color: #428bff; */
 }
 .tabs input[name=tab-control]:nth-of-type(4):checked ~ ul > li:nth-child(4) > label span {
   color: #FFCB05;
@@ -251,7 +249,7 @@ body {
     height: 1.5em;
   }
 }
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .tabs ul li label {
     padding: 5px;
     border-radius: 5px;
@@ -268,4 +266,16 @@ body {
   .tabs .content .tab_content h2 {
     display: block;
   }
+} */
+
+@media (max-width: 600px) {
+    .project-info {
+        display: none;
+    }
+    .project-image {
+        width: 100%;
+    }
+    .parent {
+        width: 100%;
+    }
 }
