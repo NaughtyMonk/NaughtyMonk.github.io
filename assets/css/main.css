@@ -2691,14 +2691,13 @@ input, select, textarea {
 				color: #FFCB05;
 				display: flex;
 				flex-direction: row; /* Иконка и текст будут друг под другом */
-				align-items: center;    /* Выравнивание по центру внутри li */
+				align-items: center;    
 			}
 
 			ul.contact li.icon [class^="fa-"]::before,
-			ul.contact li.icon [class*=" fa-"]::before {
-				
+			ul.contact li.icon [class*=" fa-"]::before {				
 				position: relative;
-				margin-bottom: 0.5em; /* Отступ под иконкой, если она над текстом */
+				margin-bottom: 0.5em; 
 				width: 50px;
 				height: 50px;
 			}
@@ -2709,14 +2708,52 @@ input, select, textarea {
 			}
 
 
+			.qr-text {
+				text-align: center !important;
+			}
+			
+@media (max-width: 980px) { /* Порог в 768px обычно подходит для планшетов/мобильных */
+    .contact-layout-container {
+        flex-direction: column !important;
+        align-items: center !important; 
+    }
+
+    /* Изменяем порядок элементов на мобильных устройствах */
+    .qr-code-wrapper {
+        order: -1 !important; /* Помещаем QR-код на первое место (выше всех) */
+        margin-bottom: 20px !important; /* Добавляем отступ под QR-кодом */
+    }
+
+    .contact{
+        width: 100% !important; /* Списки занимают всю ширину на мобильных */
+        flex-basis: auto !important; /* Сбрасываем базовую ширину */
+        align-items: center !important; 
+    }
+
+    .contact { /* ВАЖНО: Используем ul.contact li */
+    list-style: none !important;
+    display: flex !important;
+    flex-direction: column !important; /* Элементы списка идут друг под другом */
+	}
+	.contact li {
+		display: none !important;
+	}
+    ul.contact li { /* ВАЖНО: Используем ul.contact li */
+        flex-basis: 100% !important;
+        margin-bottom: 20px !important;
+    }
+
+}
+
+
 	ul.contact {
 		list-style: none;
 		padding: 0;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-around;
+		justify-content: center;
 		/* align-items: flex-start; */
-		/* align-items: center; */
+		align-items: center;
 	}
 
 		ul.contact li {
@@ -2724,7 +2761,7 @@ input, select, textarea {
 			margin: 10px;
 			/* padding: 0 0 0 3.25em; */
 			flex-basis: 300px;
-			flex-grow: 1;
+			/* flex-grow: 1; */
 			display: flex;
 			flex-direction: column;
 			align-items: center; 
@@ -2745,9 +2782,9 @@ input, select, textarea {
 
 			ul.contact li:before {
 				border-radius: 100%;
-				border: solid 2px rgba(255, 255, 255, 0.125);
+				/* border: solid 2px rgba(255, 255, 255, 0.125); */
 				/* display: inline-block; */
-				font-size: 0.8em;
+				font-size: 1.em;
 				height: 2.5em;
 				/* left: 0; */
 				line-height: 2.35em;
@@ -3093,27 +3130,34 @@ input, select, textarea {
 
 		@media screen and (max-width: 980px) {
 
-			.features article {
-				margin: 1em 2em 1em 0;
-				width: calc(50% - 1em);
+			.features {
+				display: block;
 			}
+
+				.features article {
+					width: 100%;
+					margin: 0 0 2em 0 !important;
+				}
 
 		}
 
 		@media screen and (max-width: 736px) {
 
-			.features article {
-				padding: 1.5em 1.5em 0.1em 1.5em ;
-				margin: 0.875em 1.75em 0.875em 0;
-				width: calc(50% - 0.875em - 1px);
+			.features {
+				display: block;
 			}
 
-				.features article .image {
+				.features article {
+					width: 100%;
+					margin: 0 0 2em 0 !important;
+				}
+
+				/* .features article .image {
 					margin-bottom: 1.5em;
 					margin-left: -1.5em;
 					margin-top: -1.5em;
-					width: calc(100% + 3em);
-				}
+					width: 100%;
+				} */
 
 		}
 
@@ -4199,7 +4243,7 @@ background-image: linear-gradient(to top, #ffffff7f, rgba(41, 41, 41, 0.8)), url
 		}
 
 			#footer .inner {
-				padding: 2em 2em 0.1em 2em ;
+				padding: 4em 4em 0.1em 4em ;
 			}
 
 				#footer .inner form {
@@ -4853,4 +4897,27 @@ circle {
 
 }
 
+.contact-layout-container{
+	display: flex;
+	margin:100px 0 100px 0;
+	/* align-items:center ; */
+}
+.qr-code-image {
+	cursor: pointer;
+	border: 1px solid #ffcd059a;
+	border-radius: 50%;
+	width: 400px;
+	height: 400px;
+}
 
+.qr-code-image:hover{
+	box-shadow: 0 0 50px #ffcc0029; /* мягкая жёлтая тень */
+}
+
+.contact-layout-container a {
+	border-bottom: none;
+	text-decoration: none !important;;	
+}
+.contact-layout-container li a:hover {
+	color: #FFCB05;
+}
