@@ -4904,7 +4904,7 @@ circle {
 }
 .qr-code-image {
 	cursor: pointer;
-	border: 1px solid #ffcd059a;
+	/* border: 1px solid #ffcd059a; */
 	border-radius: 50%;
 	width: 400px;
 	height: 400px;
