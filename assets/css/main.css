@@ -2687,18 +2687,47 @@ input, select, textarea {
 				font-size: 1.25em;
 			}
 
+			ul.contact li.icon {
+				color: #FFCB05;
+				display: flex;
+				flex-direction: row; /* Иконка и текст будут друг под другом */
+				align-items: center;    /* Выравнивание по центру внутри li */
+			}
+
+			ul.contact li.icon [class^="fa-"]::before,
+			ul.contact li.icon [class*=" fa-"]::before {
+				
+				position: relative;
+				margin-bottom: 0.5em; /* Отступ под иконкой, если она над текстом */
+				width: 50px;
+				height: 50px;
+			}
+
 /* Contact */
+			ul li.icon span {
+				padding-left: 4%;
+			}
+
 
 	ul.contact {
 		list-style: none;
 		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		/* align-items: flex-start; */
+		/* align-items: center; */
 	}
 
 		ul.contact li {
-			text-decoration: none;
-			margin: 2.5em 0 0 0;
-			padding: 0 0 0 3.25em;
-			position: relative;
+			/* text-align: center; */
+			margin: 10px;
+			/* padding: 0 0 0 3.25em; */
+			flex-basis: 300px;
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center; 
 		}
 
 			ul.contact li:before {
@@ -2717,12 +2746,12 @@ input, select, textarea {
 			ul.contact li:before {
 				border-radius: 100%;
 				border: solid 2px rgba(255, 255, 255, 0.125);
-				display: inline-block;
+				/* display: inline-block; */
 				font-size: 0.8em;
 				height: 2.5em;
-				left: 0;
+				/* left: 0; */
 				line-height: 2.35em;
-				position: absolute;
+				/* position: absolute; */
 				text-align: center;
 				top: 0;
 				width: 2.5em;
