@@ -455,6 +455,24 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Получаем общее количество слайдов динамически
 	const totalSlides = document.querySelectorAll(`[id^="${pagePrefix}"]`).length;
 
+
+    // Находим все обертки для галерей на новой странице
+    document.querySelectorAll(".gallery-wrapper").forEach((galleryWrapper) => {
+        const galleryImages = Array.from(galleryWrapper.querySelectorAll(".gallery-image"));
+
+        galleryImages.forEach((image, index) => {
+            image.addEventListener("click", () => {
+                // Собираем все URL-адреса для текущей галереи
+                // Используем data-full-src, если он есть, иначе src
+                const imageUrls = galleryImages.map(imgEl => imgEl.dataset.fullSrc || imgEl.src);
+
+                // Открываем полноэкранный режим с текущим списком и начальным индексом
+                openFullscreen(imageUrls, index);
+            });
+        });
+    });
+
+
 	function leftSlide() {
 		if (click) {
 			if (curpage == 1) curpage = totalSlides + 1;
@@ -662,7 +680,26 @@ document.querySelectorAll(".parent").forEach((carousel) => {
 		cursor: 'default',
 		zIndex: 10001
 	});
-	center.onclick = () => document.body.removeChild(overlay);
+	    center.onclick = () => closeOverlay();
+
+    overlay.appendChild(left);
+    overlay.appendChild(right);
+    overlay.appendChild(center);
+    document.body.appendChild(overlay);
+
+    // === Логика для закрытия по ESC ===
+    function escListener(e) {
+        if (e.key === "Escape") closeOverlay();
+    }
+
+    function closeOverlay() {
+        if (document.body.contains(overlay)) {
+            document.body.removeChild(overlay);
+            document.removeEventListener('keydown', escListener);
+        }
+    }
+
+    document.addEventListener('keydown', escListener);
 
 	overlay.appendChild(left);
 	overlay.appendChild(right);
@@ -683,6 +720,36 @@ document.querySelectorAll(".parent").forEach((carousel) => {
 		if (e.key === "ArrowRight") rightSlide();
 	});
 	
+
+
+
 });
 
 
+function resizePDFBox() {
+  const box = document.querySelector('.pdf-box');
+  if (!box) return;
+
+  // Всегда 100% ширины экрана (или max 900px на больших)
+  const windowWidth = window.innerWidth;
+  const maxWidth = Math.min(windowWidth, 1100);
+
+  // Соотношение сторон A4
+  const aspect = 0.8;
+  let height = maxWidth / aspect;
+
+  // Ограничиваем максимальную высоту (например, 95% высоты окна)
+  const maxHeight = window.innerHeight * 0.95;
+  if (height > maxHeight) {
+    height = maxHeight;
+    box.style.width = (height * aspect) + "px";
+    box.style.height = height + "px";
+  } else {
+    box.style.width = "100%";
+    box.style.maxWidth = maxWidth + "px";
+    box.style.height = height + "px";
+  }
+}
+
+window.addEventListener('DOMContentLoaded', resizePDFBox);
+window.addEventListener('resize', resizePDFBox);

@@ -248,6 +248,16 @@ body {
   .tabs ul li label svg {
     height: 1.5em;
   }
+    .project-info {
+        display: none;
+    }
+    .project-image {
+        width: 100%;
+    }
+    .parent {
+        width: 100%;
+    }
+
 }
 /* @media (max-width: 600px) {
   .tabs ul li label {
@@ -268,14 +278,3 @@ body {
   }
 } */
 
-@media (max-width: 600px) {
-    .project-info {
-        display: none;
-    }
-    .project-image {
-        width: 100%;
-    }
-    .parent {
-        width: 100%;
-    }
-}
